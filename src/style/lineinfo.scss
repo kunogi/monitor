@@ -1,0 +1,24 @@
+.lineinfo{
+  color:#fff;
+  width:100%;
+  display:flex;
+  font-size: .24rem;
+}
+
+.hqtime{
+  color:#dae2eb;
+}
+
+.lineinfo span{
+  padding-right:5px;
+  flex:1;
+}
+
+.infoonline{
+  color:#00BBFF;
+  font-weight: bold;
+}
+
+.infostatus{
+  background-color: #f00;
+}

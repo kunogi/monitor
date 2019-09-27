@@ -1,0 +1,72 @@
+.titlearea{
+  color:rgb(218, 226, 235);
+  height:40px;
+	min-width: 400px;
+  font-size: .35rem;
+}
+.titlearea section{
+  height:inherit;
+}
+
+.brandarea{
+  float:left;
+  width:25%;
+}
+
+.pricearea{
+  float:left;
+  width:25%;
+}
+.infoarea{
+  width:50%;
+  float:left;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
+}
+
+.priceareawide{
+  float:left;
+  width:30%;
+}
+.infoareanarrow{
+  width:40%;
+  float:left;
+}
+
+.symbolstyle{
+  font-size: .2rem;
+}
+
+.mainprice{
+  font-size: .38rem;
+  font-weight: bold;
+}
+.priceextra{
+  float:left;
+  font-size: .2rem;
+  padding-right: 4px;
+}
+
+.infodiv{
+  float:left;
+  padding-right: 5px;
+  font-size: .24rem;
+  line-height: 20px;
+}
+
+.namestyle{
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
+}
+
+.titlearea .green{
+ color:#0EFF00;
+}
+.titlearea .red{
+  color:#FF1100;
+}
+.titlearea .equal{
+  color:#fff;
+}
