@@ -12,7 +12,7 @@ module.exports={
 		filename: 'index.js'
 	},
 	
-	mode:"development",
+	//mode:"development",
 
 	//devtool:"eval-source-map",
 
@@ -26,7 +26,7 @@ module.exports={
 			'vue$':'vue/dist/vue.common.js'
 		}
 	},
-*/
+	*/
 	module:{
 		rules:[
 			/*
