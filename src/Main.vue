@@ -1,6 +1,6 @@
 <template>
 	<div id="app" class="flexbox">
-		<section v-for="(one,idx) in symbolArr" class="itemsection">
+		<section v-for="(one,idx) in symbolArr" :key="idx" class="itemsection">
 			<Title :symbol="one.symbol" :hqData="hqObj" :hqStr="hqStr"></Title>
 			<Chart :symbol="one.symbol" :hqData="hqStr" :hqObj='hqObj' :domid="'dom_'+one.symbol+'_'+idx" :style="{'background':exceptionInfo(one.symbol)}"></Chart>
 			<LineInfo :symbol="one.symbol" :hqData="hqObj" :fullData="hqInfoData"></LineInfo>
@@ -10,9 +10,9 @@
 </template>
 
 <script>
-	import Chart from './component/Chart';
-	import Title from './component/Title';
-	import LineInfo from './component/LineInfo';
+	import Chart from './component/Chart.vue';
+	import Title from './component/Title.vue';
+	import LineInfo from './component/LineInfo.vue';
 
 	import {utils} from './util/utils';
 	import {cfg} from './util/cfg';
@@ -24,9 +24,9 @@
 					{symbol:'sh000001'},
 					{symbol:'sz399006'},
 					{symbol:'rt_hkHSI'},
-					{symbol:'fx_susdcnh'},
+					{symbol:'fx_susdcny'},
 					{symbol:'gb_$ixic'},
-					{symbol:'sb899002'},
+					{symbol:'lse_lse'},
 					{symbol:'nf_I0'},
 					{symbol:'nf_IF0'},
 					{symbol:'hf_CL'},

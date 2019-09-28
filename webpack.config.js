@@ -1,50 +1,6 @@
 let webpack=require('webpack');
 let path=require('path');
-//let ExtractTextPlugin=require("extract-text-webpack-plugin");
-
-// 切换至生产模式
-if(process.env.NODE_ENV==='production'){
-	module.exports.plugins=(module.exports.plugins || []).concat([
-		/*
-		new webpack.DefinePlugin({
-			'process.env':{
-				NODE_ENV:'"production"'
-			}
-		}),
-		*/
-		// Minify the code.
-		/*
-		new webpack.LoaderOptionsPlugin({
-			minimize:true
-		}),
-		*/
-		// new webpack.optimize.CommonsChunkPlugin({
-		//     name: 'common',
-		//     filename: 'common_bundle.js',
-		// }),
-		/*
-		new webpack.optimize.UglifyJsPlugin({
-			compress:{
-				// 在UglifyJs删除没有用到的代码时不输出警告
-				warnings:false,
-				// 删除所有的 `console` 语句
-				// 还可以兼容ie浏览器
-				drop_console:true,
-				// 内嵌定义了但是只用到一次的变量
-				collapse_vars:true,
-				// 提取出出现多次但是没有定义成变量去引用的静态值
-				reduce_vars:true
-			},
-			output:{
-				// 最紧凑的输出
-				beautify:false,
-				// 删除所有的注释
-				comments:false
-			}
-		}),
-		*/
-	]);
-}
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports={
 	//entry: {		index:['babel-polyfill', './src/entry.js'],	},
@@ -53,8 +9,10 @@ module.exports={
 	output:{
 		path:path.resolve(__dirname,'build'),
 		//publicPath: '/build/',
-		filename: 'js.js'
-    },
+		filename: 'index.js'
+	},
+	
+	mode:"development",
 
 	//devtool:"eval-source-map",
 
@@ -71,11 +29,13 @@ module.exports={
 */
 	module:{
 		rules:[
+			/*
 			{
 				test:/\.jsx?$/,
 				use:'babel-loader',
 				exclude:['/node_module/']
 			},
+			*/
 			{
 				test:/\.vue$/,
 				loader:'vue-loader',
@@ -102,32 +62,11 @@ module.exports={
 			filename:'index.css'
 		})
 		*/
+		new VueLoaderPlugin()
 	],
 
 	// 不要打包这些模块，而是在运行时从环境中请求他们
-	/*
 	externals: {
 		vue: 'Vue'
-	},
-	*/
-    // 启用本地服务
-	devServer:{
-        // contentBase: path.join(__dirname, "build"),
-        // compress: true,
-        // https: true,
-        // noInfo: true,
-		/*
-		proxy:{
-			'/': {
-				target: "http://10.210.73.55",
-				secure: false,
-				changeOrigin: true
-			}
-		},
-		*/
-        host:'127.0.0.1',
-        historyApiFallback: true,
-        hot: true,
-        port: 2345
-    }
+	}
 };
