@@ -3,6 +3,7 @@
 </template>
 
 <script>
+	/**行情图配置*/
 	export default{
 		data(){
 			return {

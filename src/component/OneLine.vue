@@ -5,6 +5,7 @@
 </template>
 
 <script>
+	/**线路状态 样式变化*/
 	export default{
 		data(){
 			return{

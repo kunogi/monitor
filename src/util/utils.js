@@ -9,7 +9,7 @@ class FNs{
 			baseElement=head.getElementsByTagName('base')[0];
 
 		//n.type='text/javascript';
-		n.charset=charset_||'gb2312';//set charset before src to void a messy chinese in ie
+		n.charset=charset_||'gb18030';//set charset before src to void a messy chinese in ie
 		n.src=url_;
 		n.async=true;
 		n.onload = n.onreadystatechange =function(){

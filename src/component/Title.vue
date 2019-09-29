@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	/**文字报价区*/
 	import {utils} from '../util/utils';
 
 	export default{
