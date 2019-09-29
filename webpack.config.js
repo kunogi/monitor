@@ -1,6 +1,7 @@
 let webpack=require('webpack');
 let path=require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const HtmlWebpackPlugin=require('html-webpack-plugin');
 
 module.exports={
 	//entry: {		index:['babel-polyfill', './src/entry.js'],	},
@@ -62,7 +63,14 @@ module.exports={
 			filename:'index.css'
 		})
 		*/
+		
+		new HtmlWebpackPlugin({
+			template:'./src/index.html',
+			filename:'index.html'
+		}),
+		
 		new VueLoaderPlugin()
+		
 	],
 
 	// 不要打包这些模块，而是在运行时从环境中请求他们
