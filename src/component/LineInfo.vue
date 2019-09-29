@@ -17,7 +17,7 @@
 				market2:'',
 				marketData:undefined,
 				hqObj:{
-					name:'行情时间',
+					name:"行情时间",
 					timepart:''
 				}
 			}
