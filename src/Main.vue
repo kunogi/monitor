@@ -37,10 +37,12 @@
 				hqInfo:{
 					url:'https://aa.sinajs.cn/mon/hq.php?type=',
 					keys:'lv1sh,lv1sh_fast,lv2sh,lv1sz,lv2sz,us,hk,fx,sb,dce',
-					jsvar:'hq_mon'
+					jsvar:'hq_mon',
+					refreshRate:9000
 				},
 				hqInfoData:undefined,
-				futureUrl:'//gu.sina.cn/hq/api/openapi.php/FuturesService.getInner?sort=percent&asc=0&page=1&num=99&type=$type&callback=$cb'
+				futureUrl:'//gu.sina.cn/hq/api/openapi.php/FuturesService.getInner?sort=percent&asc=0&page=1&num=99&type=$type&callback=$cb',
+				warningColor:'rgba(30,30,240,.5)'
 			}
 		},
 		created(){
@@ -89,7 +91,7 @@
 			},
 			initPhpData(){
 				this.loadHqInfo();
-				setInterval(this.loadHqInfo,5000);
+				setInterval(this.loadHqInfo,this.hqInfo.refreshRate);
 			},
 			loadHqInfo(){
 				let url=[this.hqInfo.url,this.hqInfo.keys].join('');
@@ -119,7 +121,7 @@
 				for(let one,i=this.hqInfoData.length;i--;){
 					one=this.hqInfoData[i];
 					if((one.market==utils.fn.getMarketViaSymbol(sb_) || this.dceMarket(sb_)==one.market) && one.status>0){
-						bg='rgba(30,30,240,.5)';
+						bg=this.warningColor;
 					}
 				}
 				return bg;
