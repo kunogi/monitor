@@ -101,3 +101,6 @@ class FNs{
 export let utils={
 	fn:FNs
 };
+
+import Vue from 'vue';
+export const dispather=new Vue();

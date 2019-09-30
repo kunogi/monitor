@@ -2,7 +2,15 @@
 	<div id="app" class="flexbox">
 		<section v-for="(one,idx) in symbolArr" :key="idx" class="itemsection">
 			<Title :symbol="one.symbol" :hqData="hqObj" :hqStr="hqStr"></Title>
-			<Chart :symbol="one.symbol" :hqData="hqStr" :hqObj='hqObj' :domid="'dom_'+one.symbol+'_'+idx" :style="{'background':exceptionInfo(one.symbol)}"></Chart>
+
+			<Chart :symbol="one.symbol"
+				:hqData="hqStr"
+				:hqObj='hqObj'
+				:domid="'dom_'+one.symbol+'_'+idx"
+				:style="{'background':exceptionInfo(one.symbol)}">
+			</Chart>
+			
+
 			<LineInfo :symbol="one.symbol" :hqData="hqObj" :fullData="hqInfoData"></LineInfo>
 		</section>
 	</div>
@@ -14,12 +22,13 @@
 	import Title from './component/Title.vue';
 	import LineInfo from './component/LineInfo.vue';
 
-	import {utils} from './util/utils';
+	import {utils,dispather} from './util/utils';
 	import {cfg} from './util/cfg';
 
 	export default{
 		data(){
 			return {
+				inited:false,
 				symbolArr:[
 					{symbol:'sh000001'},
 					{symbol:'sz399006'},
@@ -74,18 +83,25 @@
 				);
 			},
 			initWs(){
-				let _self=this;
 				let symbols='';
 				for(let i=this.symbolArr.length;i--;){
 					symbols+=this.symbolArr[i].symbol+',';
 				}
 				new HQ.DataCenter({
 					symbols:symbols,
-					getStr:function(_){
-						_self.hqStr=_;
+					getStr:_=>{
+						this.hqStr=_;
+						if(this.inited){
+							dispather.$emit(cfg.EVT.UPDATE_HQ_STR,this.hqStr);
+						}
+						this.inited=true;
 					},
-					getObj:function(_){
-						_self.hqObj=Object.assign({},_);
+					getObj:_=>{
+						this.hqObj=Object.assign({},_);
+						if(this.inited){
+							dispather.$emit(cfg.EVT.UPDATE_HQ_OBJ,this.hqObj);
+						}
+						//this.inited=true;//turn into true during getStr(), for charts
 					}
 				});
 			},
@@ -106,7 +122,6 @@
 				if(cfg.dcedatas){
 					let code=sb_.split('_')[1];
 					for(let d=cfg.dcedatas,i=d.length;i--;){
-
 						if(d[i].symbol==code){
 							market='dce';
 							break;

@@ -4,6 +4,9 @@
 
 <script>
 	/**行情图配置*/
+	import { dispather } from "../util/utils";
+	import {cfg} from "../util/cfg"
+
 	export default{
 		data(){
 			return {
@@ -84,20 +87,18 @@
 				this.chart.resize();
 			},
 			init(){
-				let _self=this;
+				let chartCfg=this.getCfg(this.symbol);
 
-				let cfg=this.getCfg(this.symbol);
-
-				KKE.api(cfg.api,{
+				KKE.api(chartCfg.api,{
 					domid:this.domid,
-					view:cfg.view,
-					nfloat:cfg.nfloat,
+					view:chartCfg.view,
+					nfloat:chartCfg.nfloat,
 					symbol:this.symbol,
-					theme:cfg.theme,
+					theme:chartCfg.theme,
 					t_rate:30*60,//30min
 					rate:0//no http hq request
-				},function(chart_){
-					_self.chart=chart_;
+				},chart_=>{
+					this.chart=chart_;
 
 					chart_.toggleExtend();
 
@@ -116,8 +117,8 @@
 							show_ext_marks:false
 						});
 
-						if(_self.isInit){
-							_self.isInit=false;
+						if(this.isInit){
+							this.isInit=false;
 							let r=new Date(),
 								n=60*r.getTimezoneOffset()*1e3;
 							r.setTime(r.getTime()+n);
@@ -130,13 +131,23 @@
 						}
 					}
 
-					window.addEventListener('resize',_self.onResize);
+					window.addEventListener('resize',this.onResize);
+					
+					dispather.$on(cfg.EVT.UPDATE_HQ_STR,_=>{
+						let hqStr=_[this.symbol];
+						//console.log('push data to chart:',hqStr, this.symbol);
+						hqStr&&this.chart&&this.chart.pushData([{
+							symbol:this.symbol,
+							data:hqStr
+						}],1);
+					});
+					
 				});
 			}
 		},
 		mounted(){
 			this.init();
-		},
+		}/*,
 		watch:{
 			hqData(){
 				let hqStr=this.hqData[this.symbol];
@@ -145,6 +156,6 @@
 					data:hqStr
 				}],1);
 			}
-		}
+		}*/
 	};
 </script>

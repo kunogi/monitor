@@ -27,7 +27,8 @@
 
 <script>
 	/**文字报价区*/
-	import {utils} from '../util/utils';
+	import {utils, dispather} from "../util/utils";
+	import {cfg} from "../util/cfg";
 
 	export default{
 		data:function(){
@@ -43,25 +44,18 @@
 			hqStr:undefined
 		},
 		mounted(){
-			let _self=this;
-
 			this.market=utils.fn.getMarketViaSymbol(this.symbol);
-			/*
-			new HQ.DataCenter({
-				symbols:this.symbol,
-				getObj:function(_){
-					console.log(_);
-					_self.obj=_[_self.symbol];
-					_self.code=_self.obj.code.toUpperCase();
-				}
-			});
-			*/
-		},
+
+			dispather.$on(cfg.EVT.UPDATE_HQ_OBJ,_=>{
+				this.obj=_[this.symbol];
+				this.code=this.obj.code.toUpperCase();
+			})
+		}/*,
 		watch:{
 			hqData(){
 				this.obj=this.hqData[this.symbol];
 				this.code=this.obj.code.toUpperCase();
 			}
-		}
+		}*/
 	}
 </script>
