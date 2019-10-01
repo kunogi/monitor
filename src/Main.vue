@@ -33,7 +33,7 @@
 					{symbol:'sh000001'},
 					{symbol:'sz399006'},
 					{symbol:'rt_hkHSI'},
-					{symbol:'fx_susdcny'},
+					{symbol:'rt_hk00700'},
 					{symbol:'gb_$ixic'},
 					{symbol:'lse_lse'},
 					{symbol:'nf_I0'},
@@ -59,7 +59,7 @@
 		},
 		mounted(){
 			this.initDCESymbols();
-			this.initPhpData();
+			//this.initPhpData();
 			this.initWs();
 		},
 		methods:{
@@ -91,6 +91,8 @@
 					symbols:symbols,
 					getStr:_=>{
 						this.hqStr=_;
+						console.log(this.inited,_);
+						return;
 						if(this.inited){
 							dispather.$emit(cfg.EVT.UPDATE_HQ_STR,this.hqStr);
 						}
@@ -98,6 +100,7 @@
 					},
 					getObj:_=>{
 						this.hqObj=Object.assign({},_);
+						return;
 						if(this.inited){
 							dispather.$emit(cfg.EVT.UPDATE_HQ_OBJ,this.hqObj);
 						}

@@ -45,17 +45,17 @@
 		},
 		mounted(){
 			this.market=utils.fn.getMarketViaSymbol(this.symbol);
-
+return;
 			dispather.$on(cfg.EVT.UPDATE_HQ_OBJ,_=>{
 				this.obj=_[this.symbol];
 				this.code=this.obj.code.toUpperCase();
 			})
-		}/*,
+		},
 		watch:{
 			hqData(){
 				this.obj=this.hqData[this.symbol];
 				this.code=this.obj.code.toUpperCase();
 			}
-		}*/
+		}
 	}
 </script>

@@ -133,6 +133,7 @@
 
 					window.addEventListener('resize',this.onResize);
 					
+					return;
 					dispather.$on(cfg.EVT.UPDATE_HQ_STR,_=>{
 						let hqStr=_[this.symbol];
 						//console.log('push data to chart:',hqStr, this.symbol);
@@ -147,15 +148,16 @@
 		},
 		mounted(){
 			this.init();
-		}/*,
+		},
 		watch:{
 			hqData(){
 				let hqStr=this.hqData[this.symbol];
+				console.log('chart watch hqData',this.symbol,hqStr);
 				hqStr&&this.chart&&this.chart.pushData([{
 					symbol:this.symbol,
 					data:hqStr
 				}],1);
 			}
-		}*/
+		}
 	};
 </script>
